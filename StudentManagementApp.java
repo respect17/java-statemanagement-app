@@ -1,13 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 public class StudentManagementApp {
-
     public static void main(String[] args) {
-        Student student1 = new Student(1, "Alice", 85.5);
-        Student student2 = new Student(2, "Bob", 92.0);
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("John Doe", 20, "S001", "A"));
+        students.add(new Student("Jane Smith", 22, "S002", "B"));
 
-        System.out.println("Student 1 Information:");
-        student1.displayStudentInfo();
+        // Display all students
+        students.forEach(Student::display);
 
-        System.out.println("\nStudent 2 Information:");
-        student2.displayStudentInfo();
+        // Use Streams to filter and display
+        students.stream()
+                .filter(s -> s.getStudentGrade().equals("A"))
+                .forEach(Student::display);
+
+        // Example of Optional usage
+        Optional<Student> optionalStudent = students.stream()
+                .filter(s -> s.getStudentID().equals("S001"))
+                .findFirst();
+
+        optionalStudent.ifPresent(Student::display);
     }
 }
